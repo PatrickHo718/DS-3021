@@ -6,7 +6,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import graphviz 
+# import graphviz 
 
 from sklearn.model_selection import train_test_split,RepeatedKFold,GridSearchCV
 from sklearn import metrics
@@ -22,7 +22,19 @@ from sklearn.impute import SimpleImputer
 # %%
 #Read in the data from the github repo, you should also have this saved locally...
 winequality = pd.read_csv("https://raw.githubusercontent.com/UVADS/DS-3001/main/data/winequality-red-ddl.csv")
+# %%
+# Calculate the Big O complexity for a decision tree
+# The complexity of building a decision tree is O(n * m * log(m)), where:
+# n = number of features
+# m = number of samples
 
+n_features = X.shape[1]
+n_samples = X.shape[0]
+
+# Assuming log base 2 for the logarithmic term
+big_o_complexity = n_features * n_samples * np.log2(n_samples)
+
+print(f"Big O complexity for building the decision tree: O({big_o_complexity:.2e})")
 # %%
 #Let's take a look...
 print(winequality.info()) #Some NA's
@@ -89,8 +101,8 @@ param={
     #"min_samples_leaf":[1,2,3,4,5,6,7,8,9,10],
     #"min_weight_fraction_leaf":[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9],
     #"max_features":["auto","log2","sqrt",None],
-    #"max_leaf_nodes":[None,10,20,30,40,50,60,70,80,90] 
-    #'min_impurity_decrease':[0.00005,0.0001,0.0002,0.0005,0.001,0.0015,0.002,0.005,0.01],
+    #"max_leaf_nodes":[None,10,20,30,40,50,60,70,80,90] ,
+    'min_impurity_decrease':[0.00005,0.0001,0.0002,0.0005,0.001,0.0015,0.002,0.005,0.01],
     #'ccp_alpha':[.001,.01,.1]
         }
 
